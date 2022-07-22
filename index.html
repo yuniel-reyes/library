@@ -28,6 +28,7 @@
                 <th>Author</th>
                 <th>Title</th>
                 <th>Pages</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +40,7 @@
         <div class="close-form-container">
             <button class="close-form">X</button>
         </div>
-        <form id="book-form">
+        <form method="post"   id="book-form">
             <label for="book_title" class="book_title_label">Title</label>
             <input type="text" id="book_title" name="book_title">
             <br>
@@ -51,7 +52,7 @@
             <label for="book_pages" class="book_pages_label">Pages</label>
             <input type="number" id="book_pages" name="book_pages">
 
-            <button type="submit" form="book-form">Add book</button>
+            <button type="submit" form="book-form" id="submit-book">Add book</button>
         </form>
     </div>
 
