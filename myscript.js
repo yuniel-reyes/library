@@ -17,6 +17,14 @@ const bookPrototype = {
         }
         return "not read"
     },
+    changeStatus() {
+        if (this.read){
+            this.read = false;
+        } else {
+            this.read = true;
+        }
+        return this;
+    }
 }
 
 // Prototype the Book constructor
@@ -29,61 +37,11 @@ function addBookToLibrary(title, author, pages) {
     showBooks();
 }
 
-// Test
-// addBookToLibrary("The Hobbit", "Talkien", 332);
-// addBookToLibrary("The Alchemist", "Cohelo", 232);
-// addBookToLibrary("Don Quijote", "Cervantes", 789);
-// console.log(myLibrary);
-
-
 // ==========================================FUNCTIONS
 // Show books on page 
-function showBooks(){
-    const lastAddedItem = myLibrary.slice(-1);
-    lastAddedItem.forEach(function(book, index){
-        const newTableRow = document.createElement('tr')
-        // Create remove button for each book
-        const removeBtn = document.createElement('button');
-        removeBtn.setAttribute('data-book-index', index);
-        removeBtn.setAttribute('class', 'remove-btn');
-        removeBtn.textContent = "Remove";
-
-        // Create fields for every book data
-        for (eachProp in book) {
-            // Check every own property and add field to table with it
-            if (book.hasOwnProperty(eachProp)) { 
-                const newTableData = document.createElement('td');
-                newTableData.textContent = book[eachProp];
-                newTableRow.appendChild(newTableData);
-            } else { 
-                // check read status of book and add a field with it
-                const statusBtn = document.createElement('button');
-                statusBtn.setAttribute('class', 'status-button');  
-                statusBtn.textContent = book.checkRead();
-                const newTableData = document.createElement('td');
-                newTableData.appendChild(statusBtn);
-                newTableRow.appendChild(newTableData);
-            }
-
-        }
-        // Add remove button
-        const newTableData = document.createElement('td');
-        newTableData.appendChild(removeBtn);
-        newTableRow.appendChild(newTableData);
-        // Add row to table with all new book fields
-        theBodyOfTable[0].appendChild(newTableRow);
-    }); 
-}
-
-
 // Show the form when add book button is clicked
 function showForm(){    
     theFormContainer.classList.toggle('form-container-visible');
-}
-
-// Hide the form if close button is clicked
-function hideForm(){
-    theFormContainer.classList.remove('form-container-visible')
 }
 
 // The collectData function get every value of the form
@@ -98,9 +56,111 @@ function collectData(e) {
     addBookToLibrary(theTitle, theAuthor, thePages);
 }
 
-// 
+// Hide the form if close button is clicked
+function hideForm(){
+    theFormContainer.classList.remove('form-container-visible')
+}
+
+function showBooks(){
+
+    // Take only the last added book
+    const lastAddedBook = myLibrary.slice(-1);
+
+    // For each last added book to be shown: 
+    lastAddedBook.forEach(function(book){
+        // Create table row
+        const newTableRow = document.createElement('tr');
+        
+        // Create fields for every book data
+        for (eachProp in book) {
+            // Check every own property and add field to table with it
+            if (book.hasOwnProperty(eachProp)) { 
+                const newTableData = document.createElement('td');
+                newTableData.textContent = book[eachProp];
+                newTableRow.appendChild(newTableData);
+            } else if (eachProp === "checkRead"){ 
+                // Check non own properties and create field for it
+                // Create button for 'read' status
+                const statusBtn = document.createElement('button');
+                // Add event handler to each book | status button
+                statusBtn.addEventListener('click', changeStatus);
+                // Set attribute for read status
+                statusBtn.setAttribute('class', 'status-button');
+                // Add status as text content of the button  
+                statusBtn.textContent = book.checkRead();
+                // Create field for status button
+                const newTableData = document.createElement('td');
+                // Append status button to field
+                newTableData.appendChild(statusBtn);
+                // Append field to table
+                newTableRow.appendChild(newTableData);
+            }
+
+        }
+        addRemoveButton(newTableRow);
+        addIndex();
+    }); 
+}
+
+function addRemoveButton(newTableRow){
+    // Create remove button | add class attribute | add text content
+    const removeBtn = document.createElement('button');
+    removeBtn.setAttribute('class', 'remove-btn');
+    removeBtn.textContent = "Remove";
+    // Add remove button to table row
+    const newTableData = document.createElement('td');
+    newTableData.appendChild(removeBtn);
+    newTableRow.appendChild(newTableData);
+    // Add row to table with all new book fields
+    theBodyOfTable[0].appendChild(newTableRow);
+
+    // Add event listener to remove button
+    removeBtn.addEventListener('click', removeBook);
+}
+
+// This function associates the DOM element with the book
+// object in the array
+function addIndex(){
+    // Get reference of each added remove button
+    const eachRemoveBtn = document.querySelectorAll('.remove-btn');
+    eachRemoveBtn.forEach(function(book, index){
+        if (book.classList.contains('data-book-index')){
+            book.classList.remove('data-book-index');
+            book.setAttribute('data-book-index', index);
+        } else {
+            book.setAttribute('data-book-index', index);
+        }
+    });
+}
+
+// This function updates the DOM-Array association
+// every time a book is remove
+function updateIndex(){
+    const eachRemoveBtn = document.querySelectorAll('.remove-btn');
+    eachRemoveBtn.forEach(function(book, index){
+        book.classList.remove('data-book-index');
+        book.setAttribute('data-book-index', index);
+    })
+}
+
+function changeStatus(e){
+    const thisObject = e.target.parentNode.nextSibling.children[0].getAttribute('data-book-index');
+    e.target.textContent = myLibrary[thisObject].changeStatus().checkRead();
+
+}
+
+// remove book from page and array
 function removeBook(e) {
-    console.log(e);
+    // Remove from page
+    let thisIndex = e.target.dataset.bookIndex;
+    let thisParent = e.target.parentNode;
+    thisParent = thisParent.parentNode;
+    thisParent.remove();
+
+    // Remove from array
+    myLibrary.splice(thisIndex, 1);
+    updateIndex(); 
+
 }
 
 // ==========================================REFERENCES
@@ -122,6 +182,4 @@ hideFormBtn.onclick = hideForm;
 const theForm = document.getElementsByTagName('form')[0];
 theForm.onsubmit = collectData; 
 
-// Get remove button node reference
-const removeBtn = document.getElementsByClassName('remove-btn');
-removeBtn.onclick = removeBook;
+
