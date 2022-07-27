@@ -3,25 +3,20 @@ const myLibrary = [];
 
 // Function constructor
 // Function that instantiate every book object
-function Book(title, author, pages, read = false){
+function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
+    this.read = read;
 }
 
 // Create prototype object for Book
 const bookPrototype = {
-    checkRead() {
-        if (this.read){
-            return "read"
-        }
-        return "not read"
-    },
     changeStatus() {
-        if (this.read){
-            this.read = false;
+        if (this.read == "read") {
+            this.read = "no read";
         } else {
-            this.read = true;
+            this.read = "read";
         }
         return this;
     }
@@ -31,8 +26,8 @@ const bookPrototype = {
 Book.prototype = Object.create(bookPrototype);
 
 // Take user's input create new book and add to library
-function addBookToLibrary(title, author, pages) {
-    const newBook = new Book(title, author, pages);
+function addBookToLibrary(title, author, pages, read) {
+    const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
     showBooks();
 }
@@ -50,10 +45,17 @@ function collectData(e) {
     const theTitle = document.getElementById('book_title').value;
     const theAuthor = document.getElementById('book_author').value;
     const thePages = document.getElementById('book_pages').value;
+    let ifRead = document.getElementById('read-status').checked;
+    console.log(ifRead);
+    if (ifRead == true) {
+        ifRead = "read";
+    } else {
+        ifRead = "no read";
+    }
     theForm.reset();
     e.preventDefault();
     hideForm();
-    addBookToLibrary(theTitle, theAuthor, thePages);
+    addBookToLibrary(theTitle, theAuthor, thePages, ifRead);
 }
 
 // Hide the form if close button is clicked
@@ -75,25 +77,26 @@ function showBooks(){
         for (eachProp in book) {
             // Check every own property and add field to table with it
             if (book.hasOwnProperty(eachProp)) { 
-                const newTableData = document.createElement('td');
-                newTableData.textContent = book[eachProp];
-                newTableRow.appendChild(newTableData);
-            } else if (eachProp === "checkRead"){ 
-                // Check non own properties and create field for it
-                // Create button for 'read' status
-                const statusBtn = document.createElement('button');
-                // Add event handler to each book | status button
-                statusBtn.addEventListener('click', changeStatus);
-                // Set attribute for read status
-                statusBtn.setAttribute('class', 'status-button');
-                // Add status as text content of the button  
-                statusBtn.textContent = book.checkRead();
-                // Create field for status button
-                const newTableData = document.createElement('td');
-                // Append status button to field
-                newTableData.appendChild(statusBtn);
-                // Append field to table
-                newTableRow.appendChild(newTableData);
+                if (eachProp === "read") {
+                    // Create button for 'read' status
+                    const statusBtn = document.createElement('button');
+                    // Add event handler to each book | status button
+                    statusBtn.addEventListener('click', changeStatus);
+                    // Set attribute for read status
+                    statusBtn.setAttribute('class', 'status-button');
+                    // Add status as text content of the button  
+                    statusBtn.textContent = book.read;
+                    // Create field for status button
+                    const newTableData = document.createElement('td');
+                    // Append status button to field
+                    newTableData.appendChild(statusBtn);
+                    // Append field to table
+                    newTableRow.appendChild(newTableData);
+                } else {
+                    const newTableData = document.createElement('td');
+                    newTableData.textContent = book[eachProp];
+                    newTableRow.appendChild(newTableData);
+                }
             }
 
         }
@@ -145,8 +148,7 @@ function updateIndex(){
 
 function changeStatus(e){
     const thisObject = e.target.parentNode.nextSibling.children[0].getAttribute('data-book-index');
-    e.target.textContent = myLibrary[thisObject].changeStatus().checkRead();
-
+    e.target.textContent = myLibrary[thisObject].changeStatus().read;
 }
 
 // remove book from page and array

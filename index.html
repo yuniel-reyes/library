@@ -13,48 +13,73 @@
     <header>
         <div class="header-container">
             <h2>Library</h2>
-            <div class="badge-container">
-                <div></div>
-                <div></div>
-            </div>
         </div>
+        <div class="badge-container">
+            <div class="badge-container-odin"><a href="https://www.theodinproject.com"><img src="images/odin-lined.png" alt="odin" class="odin" ></a></div>
+            <!-- <div class="badge-container-odin-word">
+                <p>odin</p>
+            </div> -->
+            <div class="badge-container-github"><a href="https://github.com/yuniel-reyes"><img src="images/GitHub-Mark-32px.png" alt="github" class="github" ></a></div>
+        </div>
+
     </header>
 
+    <main>
+        <div class="table-container">
+            <table>
+                <thead class="table-headers">
+                    <tr>
+                        <th>AUTHOR</th>
+                        <th>TITLE</th>
+                        <th>PAGES</th>
+                        <th>STATUS</th>
+                        <th>REMOVAL</th>
 
-
-    <table>
-        <thead>
-            <tr>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Pages</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <br>
-    <button class="add-book">New Book</button>
-    <div class="form-container">
-        <div class="close-form-container">
-            <button class="close-form">X</button>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>    
         </div>
-        <form method="post"   id="book-form">
-            <label for="book_title" class="book_title_label">Title</label>
-            <input type="text" id="book_title" name="book_title">
-            <br>
-    
-            <label for="book_author" class="book_author_label">Author</label>
-            <input type="text" id="book_author" name="book_author">
-            <br>
-    
-            <label for="book_pages" class="book_pages_label">Pages</label>
-            <input type="number" id="book_pages" name="book_pages">
+        <br>
+        <div class="form-container">
+            <div class="close-form-container">
+                <button class="close-form">X</button>
+            </div>
+            <form method="#"   id="book-form">
+                <label for="book_title" class="book_title_label"></label>
+                <input type="text" id="book_title" name="book_title" placeholder="Title" autocomplete="off">
+                <br>
+        
+                <label for="book_author" class="book_author_label"></label>
+                <input type="text" id="book_author" name="book_author" placeholder="Author" autocomplete="off">
+                <br>
+        
+                <label for="book_pages" class="book_pages_label"></label>
+                <input type="number" id="book_pages" name="book_pages" placeholder="Pages" autocomplete="off">
+                <br><br>
 
-            <button type="submit" form="book-form" id="submit-book">Add book</button>
-        </form>
+                <label for="read-status" class="read-status-label">Have you read it?</label>
+                <input type="checkbox" id="read-status" name="read-status" value="default-read">
+
+
+            </form>
+            <div class="submit-btn-container">
+                <button type="submit" form="book-form" id="submit-book">Add book</button>
+            </div>
+        </div>
+    </main>
+    <div class="add-book-btn-container">
+        <button class="add-book">+ New Book</button>
     </div>
+    <footer>
+        <div>
+            <p>Me</p>
+        </div>
+    </footer>
+
+
+
 
     
 </body>

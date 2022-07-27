@@ -2,6 +2,8 @@
 
 ## Implementing a library using prototypes as code organization pattern 
 
+#### I. Functional Requirements 
+
 1. All book objects are going to be stored in a simple array
 - create array to store books
 - add a function to the script that:
@@ -65,4 +67,9 @@ with the book object in the array: `addIndex()`
 - `changeStatus()` function should:
 - get object being working on
 - change status of object's read property
-- update the status-button class to status-button-read  
+- update the status-button class to status-button-read
+9.    
+
+
+#### II. Non Functional Requirements 
+
