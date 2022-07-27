@@ -15,7 +15,7 @@
             <h2>Library</h2>
         </div>
         <div class="badge-container">
-            <div class="badge-container-odin"><a href="https://www.theodinproject.com"><img src="images/odin-lined.png" alt="odin" class="odin" ></a></div>
+            <div class="badge-container-odin"><a href="https://www.theodinproject.com"><img src="images/odin.png" alt="odin" class="odin" ></a></div>
             <!-- <div class="badge-container-odin-word">
                 <p>odin</p>
             </div> -->
@@ -48,15 +48,15 @@
             </div>
             <form method="#"   id="book-form">
                 <label for="book_title" class="book_title_label"></label>
-                <input type="text" id="book_title" name="book_title" placeholder="Title" autocomplete="off">
+                <input type="text" id="book_title" name="book_title" placeholder="Title" autocomplete="off" required>
                 <br>
         
                 <label for="book_author" class="book_author_label"></label>
-                <input type="text" id="book_author" name="book_author" placeholder="Author" autocomplete="off">
+                <input type="text" id="book_author" name="book_author" placeholder="Author" autocomplete="off" required>
                 <br>
         
                 <label for="book_pages" class="book_pages_label"></label>
-                <input type="number" id="book_pages" name="book_pages" placeholder="Pages" autocomplete="off">
+                <input type="number" id="book_pages" name="book_pages" placeholder="Pages" autocomplete="off" required>
                 <br><br>
 
                 <label for="read-status" class="read-status-label">Have you read it?</label>
@@ -69,18 +69,16 @@
             </div>
         </div>
     </main>
-    <div class="add-book-btn-container">
-        <button class="add-book">+ New Book</button>
-    </div>
-    <footer>
-        <div>
-            <p>Me</p>
+    <section class="footer-plus-button">
+        <div class="add-book-btn-container">
+            <button class="add-book">+ New Book</button>
         </div>
-    </footer>
-
-
-
-
-    
+        <footer>
+            <div class="footer-container">
+                <p>Created by <a href="https://github.com/yuniel-reyes"  class="signature">Yuniel Reyes</a> for 
+                    <a href="https://www.theodinproject.com" class="odin-link">The Odin Project</a></p>
+            </div>
+        </footer>
+    </section>    
 </body>
 </html>

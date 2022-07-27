@@ -92,6 +92,7 @@ function showBooks(){
                     newTableData.appendChild(statusBtn);
                     // Append field to table
                     newTableRow.appendChild(newTableData);
+                    checkStatus(statusBtn, book);
                 } else {
                     const newTableData = document.createElement('td');
                     newTableData.textContent = book[eachProp];
@@ -146,9 +147,17 @@ function updateIndex(){
     })
 }
 
+
+function checkStatus(statusBtn, thisObj) {
+    if (thisObj.read == "read"){
+        statusBtn.classList.toggle('read');
+    }
+}
+
 function changeStatus(e){
     const thisObject = e.target.parentNode.nextSibling.children[0].getAttribute('data-book-index');
     e.target.textContent = myLibrary[thisObject].changeStatus().read;
+    e.target.classList.toggle('read');
 }
 
 // remove book from page and array
