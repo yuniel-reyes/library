@@ -214,9 +214,4 @@ const Library = (() => {
     
     })();
 
-
-    return {
-        showFormBtn,
-    }
-
 })();
