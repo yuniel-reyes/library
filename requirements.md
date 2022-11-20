@@ -68,7 +68,8 @@ with the book object in the array: `addIndex()`
 - get object being working on
 - change status of object's read property
 - update the status-button class to status-button-read
-9.    
+9. Remove debug code, convert Book factory function to class,
+   and encapsulate app.    
 
 
 #### II. Non Functional Requirements 

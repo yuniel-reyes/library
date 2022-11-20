@@ -48,15 +48,15 @@
             </div>
             <form method="#"   id="book-form">
                 <label for="book_title" class="book_title_label"></label>
-                <input type="text" id="book_title" name="book_title" placeholder="Title" autocomplete="off" required>
+                <input type="text" id="book_title" name="book_title" placeholder="Title" autocomplete="off" required minlength="5">
                 <br>
         
                 <label for="book_author" class="book_author_label"></label>
-                <input type="text" id="book_author" name="book_author" placeholder="Author" autocomplete="off" required>
+                <input type="text" id="book_author" name="book_author" placeholder="Author" autocomplete="off" required minlength="5">
                 <br>
         
                 <label for="book_pages" class="book_pages_label"></label>
-                <input type="number" id="book_pages" name="book_pages" placeholder="Pages" autocomplete="off" required>
+                <input type="number" id="book_pages" name="book_pages" placeholder="Pages" autocomplete="off" required min="100">
                 <br><br>
 
                 <label for="read-status" class="read-status-label">Have you read it?</label>
